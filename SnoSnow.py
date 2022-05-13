@@ -91,13 +91,14 @@ class Player():
         self.collisions(colliders, img_copy.get_height())
         screen.blit(img_copy, (self.position.x - int(img_copy.get_width() / 2), self.position.y - int(img_copy.get_height() / 2)))
         
+# do it in a pythonic way
     def collisions(self, colliders, scale):
         #Top of box
         self.is_grounded = False
-        for i in range(len(colliders)):
-            if(self.position.y - int(scale / 2) >= colliders[i].top - scale and colliders[i].typeof == "environment"):
+        for i in colliders:
+            if(self.position.y - int(scale / 2) >= i.top - scale and i.typeof == "environment"):
                 self.is_grounded = True
-                self.position.y = colliders[i].top - int(scale / 2) + 5
+                self.position.y = i.top - int(scale / 2) + 5
                 self.velocity_y  = 0
             if(self.position.x + int(self.player_sprite.image.get_width() / 2) >= 720):
                 self.position.x = 720 - int(self.player_sprite.image.get_width() / 2)
